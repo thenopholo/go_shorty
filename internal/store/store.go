@@ -10,7 +10,7 @@ type Store struct {
 	db *sql.DB
 }
 
-func NewStrore(db *sql.DB) *Store {
+func NewStore(db *sql.DB) *Store {
 	return &Store{db}
 }
 
@@ -26,7 +26,7 @@ func (s *Store) SaveURL(code, originalURL string) error {
 
 func (s *Store) GetURL(code string) (string, error) {
 	var originalURL string
-	query := `SELECT original_url WHERE urls code = $1`
+	query := `SELECT original_url FROM urls WHERE code = $1`
 	err := s.db.QueryRow(query, code).Scan(&originalURL)
 	if err != nil {
 		if errors.Is(err, sql.ErrNoRows) {
