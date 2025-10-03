@@ -1,0 +1,44 @@
+services:
+  postgres_db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: shorty_url
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d shorty_url"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "4200:8080"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    environment:
+      - DB_HOST=postgres_db
+      - DB_PORT=5432
+      - DB_USER=admin
+      - DB_PASSWORD=password
+      - DB_NAME=shorty_url
+    volumes:
+      # Mount the entire project for hot reload
+      - ./:/app
+      # Exclude tmp directory from being overwritten
+      - /app/tmp
+    # Keep container running even if app crashes
+    stdin_open: true
+    tty: true
+
+volumes:
+  postgres_data:
