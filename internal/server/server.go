@@ -26,13 +26,29 @@ type Config struct {
 	Store  *store.Store
 }
 
+func corsMiddleware(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 func NewServer(cfg Config) *Server {
 	mux := chi.NewRouter()
 	mux.Use(middleware.Logger)
 	mux.Use(middleware.Recoverer)
 	mux.Use(middleware.RequestID)
+	mux.Use(corsMiddleware)
 
-  h := handler.NewHandler(cfg.Store)
+	h := handler.NewHandler(cfg.Store)
 
 	srv := &http.Server{
 		Addr:         ":" + cfg.Port,
@@ -43,11 +59,11 @@ func NewServer(cfg Config) *Server {
 	}
 
 	return &Server{
-		port:   srv.Addr,
-		mux:    mux,
-		server: srv,
-		logger: cfg.Logger,
-    handler: h,
+		port:    srv.Addr,
+		mux:     mux,
+		server:  srv,
+		logger:  cfg.Logger,
+		handler: h,
 	}
 }
 
