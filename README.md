@@ -206,7 +206,3 @@ docker-compose down
 # Para remover os dados do banco de dados (cuidado!)
 docker-compose down -v
 ```
-
-## Autor
-
-Desenvolvido com entusiasmo como um projeto de estudo em Go. Sinta-se à vontade para explorar, fazer perguntas e se inspirar!
