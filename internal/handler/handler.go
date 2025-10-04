@@ -95,8 +95,7 @@ func (h *Handler) URLReciver(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		sendJSON(w, Response{Err: "something went wrong"}, http.StatusInternalServerError)
-		return }
-
+		return
+	}
 	http.Redirect(w, r, url, http.StatusPermanentRedirect)
-
 }
