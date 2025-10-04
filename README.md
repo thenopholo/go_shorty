@@ -1,15 +1,15 @@
-# Shorty URL - Um Deep Dive em um Encurtador de URLs com Go
+# Go Shorty - Um Encurtador de URLs com Go
 
 Olá! Este é o **Shorty URL**, um projeto que construí para explorar e aprofundar meus conhecimentos em Go, criando uma aplicação web robusta, eficiente e moderna do zero. Mais do que apenas um encurtador de URLs, este é um estudo de caso sobre boas práticas de desenvolvimento, arquitetura de software e automação com Docker.
 
 ## Visão Geral
 
-O Shorty URL é um serviço que transforma URLs longas e complexas em links curtos e fáceis de compartilhar. Ele foi construído com uma API RESTful em Go no backend, um banco de dados PostgreSQL para persistência e uma interface de usuário simples em HTML e Tailwind CSS para demonstrar a funcionalidade.
+O Go Shorty é um serviço que transforma URLs longas e complexas em links curtos e fáceis de compartilhar. Ele foi construído com uma API RESTful em Go no backend, um banco de dados PostgreSQL para persistência e uma interface de usuário simples em HTML e Tailwind CSS para demonstrar a funcionalidade.
 
 ## Tecnologias Utilizadas
 
-- **Backend**: **Go 1.21+** com o roteador **Chi** pela sua leveza e compatibilidade com a `net/http` padrão.
-- **Frontend**: **HTML5**, **Tailwind CSS** e **JavaScript (Vanilla)** para uma interface limpa e interativa.
+- **Backend**: **Go 1.25+** com o roteador **Chi** pela sua leveza e compatibilidade com a `net/http` padrão.
+- **Frontend**: **HTML5**, **Tailwind CSS** e **JavaScript** para uma interface limpa e interativa.
 - **Banco de Dados**: **PostgreSQL 15**, escolhido por sua robustez e confiabilidade.
 - **Containerização**: **Docker** e **Docker Compose** para criar ambientes de desenvolvimento e produção consistentes e isolados.
 - **Hot-Reload**: **Air** para um fluxo de desenvolvimento ágil com recarregamento automático.
@@ -20,11 +20,11 @@ O Shorty URL é um serviço que transforma URLs longas e complexas em links curt
 
 Esta seção é um mergulho técnico nas escolhas que moldaram o projeto.
 
-### 1. O Coração da Lógica: O Algoritmo de Geração de Código
+### 1. O Algoritmo de Geração de Código
 
 A funcionalidade central é a geração de um código único e curto. A abordagem precisava ser segura, eficiente e minimizar colisões.
 
-**O Código-Fonte (`internal/service/generateRandomCode.go`):**
+**generateRandomCode.go (`internal/service/generateRandomCode.go`):**
 
 ```go
 package service
@@ -85,7 +85,7 @@ O projeto segue a estrutura padrão de projetos Go, separando claramente as resp
   - `service/`: Contém a lógica de negócio pura, como a geração de códigos.
   - `server/`: Configuração e inicialização do servidor HTTP e das rotas.
 
-### 3. Frontend: Uma Vitrine para a API
+### 3. Frontend: Uma UI para a API
 
 O frontend em `public/index.html` é intencionalmente simples. Seu objetivo é ser uma interface de demonstração para a API.
 
