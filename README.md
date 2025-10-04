@@ -1,4 +1,4 @@
-# Go Shorty - Um Encurtador de URLs com Go
+# Go Shorty | Um Encurtador de URLs com Go
 
 Olá! Este é o **Shorty URL**, um projeto que construí para explorar e aprofundar meus conhecimentos em Go, criando uma aplicação web robusta, eficiente e moderna do zero. Mais do que apenas um encurtador de URLs, este é um estudo de caso sobre boas práticas de desenvolvimento, arquitetura de software e automação com Docker.
 
